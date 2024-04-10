@@ -6,7 +6,7 @@ public class PlayerControl : MonoBehaviour
 {
     private Rigidbody2D rb; //players rigidbody 
     private Animator anim;
-    private enum State {idle,running,jumping} //player states
+    private enum State {idle,running,jumping,falling} //player states
     private State state = State.idle; //default state
     private Collider2D coll;
     [SerializeField]private LayerMask Ground;
@@ -53,14 +53,24 @@ public class PlayerControl : MonoBehaviour
     {
         if (state == State.jumping) //detecting jump
         {
-
+            if (rb.velocity.y < .1f) //detecting fall
+            {
+                state = State.falling; 
+            }
         }
-        else if (Mathf.Abs(rb.velocity.x) > 4f) //detecting movement
+        else if (state == State.falling)  //check if falling
+        {
+            if (coll.IsTouchingLayers(Ground)) 
+            {
+                state = State.idle;
+            }
+        }
+        else if (Mathf.Abs(rb.velocity.x) > .1f) //detecting movement
         {
             //moving
             state = State.running;
         }
-        else 
+        else
         {  //stopping
             state = State.idle;
         }
