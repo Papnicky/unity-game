@@ -22,14 +22,9 @@ public class PlayerControl : MonoBehaviour
     {
 
 
-
         float hdirection = Input.GetAxis("Horizontal");
 
-        if (Input.GetButtonDown("Jump") && coll.IsTouchingLayers(Ground)) 
-        {
-            rb.velocity = new Vector2(rb.velocity.x, 10f);
-            state = State.jumping;
-        }//jump
+        
 
         if (hdirection < 0)
         {
@@ -45,6 +40,12 @@ public class PlayerControl : MonoBehaviour
         {
 
         }
+        
+        if (Input.GetButtonDown("Jump") && coll.IsTouchingLayers(Ground)) 
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 10f);
+            state = State.jumping;
+        }//jump
         VelocityState();
         anim.SetInteger("state",(int) state);
     }  
