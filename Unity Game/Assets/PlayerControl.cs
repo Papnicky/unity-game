@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    private Rigidbody2D rb; //players rigidbody 
+    private Rigidbody2D rb; // players rigidbody 
     private Animator anim;
-    private enum State {idle,running,jumping,falling} //player states
-    private State state = State.idle; //default state
+    private enum State {idle,running,jumping,falling} // player states
+    private State state = State.idle; // default state
     private Collider2D coll;
     [SerializeField]private LayerMask Ground;
 
@@ -29,18 +29,18 @@ public class PlayerControl : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, 10f);
             state = State.jumping;
-        }//jump
+        }// jump
 
         if (hdirection < 0)
         {
             transform.localScale = new Vector2(-1, 1);
             rb.velocity = new Vector2(-5, rb.velocity.y);
-        } //move left
+        } // move left
         else if (hdirection > 0)
         {
             transform.localScale = new Vector2(1, 1);
             rb.velocity = new Vector2(5, rb.velocity.y);
-        } //move right
+        } // move right
         else 
         {
 
@@ -49,29 +49,29 @@ public class PlayerControl : MonoBehaviour
         anim.SetInteger("state",(int) state);
     }  
 
-    private void VelocityState() //check if jumping
+    private void VelocityState() // check if jumping
     {
-        if (state == State.jumping) //detecting jump
+        if (state == State.jumping) // detecting jump
         {
-            if (rb.velocity.y < .1f) //detecting fall
+            if (rb.velocity.y < .1f) // detecting fall
             {
                 state = State.falling; 
             }
         }
-        else if (state == State.falling)  //check if falling
+        else if (state == State.falling)  // check if falling
         {
             if (coll.IsTouchingLayers(Ground)) 
             {
                 state = State.idle;
             }
         }
-        else if (Mathf.Abs(rb.velocity.x) > .1f) //detecting movement
+        else if (Mathf.Abs(rb.velocity.x) > .1f) // detecting movement
         {
-            //moving
+            // moving
             state = State.running;
         }
         else
-        {  //stopping
+        {  // stopping
             state = State.idle;
         }
     }
