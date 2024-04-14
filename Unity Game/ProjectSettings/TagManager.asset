@@ -14,7 +14,7 @@ TagManager:
   - 
   - 
   - Ground
-  - 
+  - Decor
   - 
   - 
   - 
@@ -47,9 +47,15 @@ TagManager:
   - name: Mid
     uniqueID: 2895034145
     locked: 0
+  - name: Decors
+    uniqueID: 261505679
+    locked: 0
   - name: Fore
     uniqueID: 3849883265
     locked: 0
   - name: Entities
     uniqueID: 2841629915
+    locked: 0
+  - name: Plants
+    uniqueID: 4049373011
     locked: 0
