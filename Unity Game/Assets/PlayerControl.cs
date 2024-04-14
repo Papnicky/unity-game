@@ -35,12 +35,12 @@ public class PlayerControl : MonoBehaviour
         {
             transform.localScale = new Vector2(-1, 1);
             rb.velocity = new Vector2(-5, rb.velocity.y);
-        }//move left
+        } //move left
         else if (hdirection > 0)
         {
             transform.localScale = new Vector2(1, 1);
             rb.velocity = new Vector2(5, rb.velocity.y);
-        }//move right
+        } //move right
         else 
         {
 
