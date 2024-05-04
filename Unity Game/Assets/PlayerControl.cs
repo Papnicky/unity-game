@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    private Rigidbody2D rb; // players rigidbody 
+    public float speed = 5f; // player speed
+    private float direction = 0f; 
+    private Rigidbody2D rb; // player rigidbody 
     private Animator anim;
     private enum State {idle,running,jumping,falling} // player states
     private State state = State.idle; // default state
@@ -21,9 +23,7 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
 
-
-
-        float hdirection = Input.GetAxis("Horizontal");
+        direction = Input.GetAxis("Horizontal");
 
         if (Input.GetButtonDown("Jump") && coll.IsTouchingLayers(Ground)) 
         {
@@ -31,15 +31,15 @@ public class PlayerControl : MonoBehaviour
             state = State.jumping;
         }// jump
 
-        if (hdirection < 0)
+        if (direction < 0f)
         {
             transform.localScale = new Vector2(-1, 1);
-            rb.velocity = new Vector2(-5, rb.velocity.y);
+            rb.velocity = new Vector2(direction * speed, rb.velocity.y);
         } // move left
-        else if (hdirection > 0)
+        else if (direction > 0f)
         {
             transform.localScale = new Vector2(1, 1);
-            rb.velocity = new Vector2(5, rb.velocity.y);
+            rb.velocity = new Vector2(direction * speed, rb.velocity.y);
         } // move right
         else 
         {

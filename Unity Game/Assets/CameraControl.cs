@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
+    public float hdiff;
     public Transform player;
     void Start()
     {
@@ -11,6 +12,6 @@ public class CameraControl : MonoBehaviour
     }
     void Update()
     {
-        transform.position = new Vector3(player.position.x, player.position.y, transform.position.z);
+        transform.position = new Vector3(player.position.x, player.position.y + hdiff, transform.position.z);
     }
 }
