@@ -18,7 +18,6 @@ public class PlayerControl : MonoBehaviour
     private Vector3 respawnPoint; // records the position of player start position
     public GameObject fallDetector; // 
 
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -58,12 +57,18 @@ public class PlayerControl : MonoBehaviour
         fallDetector.transform.position = new Vector2(transform.position.x, fallDetector.transform.position.y);
 
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "FallDetector") 
+        if (collision.tag == "FallDetector")
         {
             transform.position = respawnPoint;
         }
+        else if (collision.tag == "Checkpoint")
+        {
+            respawnPoint = transform.position;        
+        }
+
     } // detects collision with tag for fall and respawns
 
     private void VelocityState() // check if jumping
