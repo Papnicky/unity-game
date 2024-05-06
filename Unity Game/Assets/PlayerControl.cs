@@ -1,22 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviour
 {
-    public float speed = 5f; // player speed
-    private float direction = 0f; 
-    private Rigidbody2D rb; // player rigidbody 
-
-    private Animator anim;
-    private enum State {idle,running,jumping,falling} // player states
-    private State state = State.idle; // default state
-
+    // Start() variables
+    private Rigidbody2D rb; 
     private Collider2D coll;
-    [SerializeField]private LayerMask Ground;
+    private Animator anim;
+    private Vector3 respawnPoint;
 
-    private Vector3 respawnPoint; // records the position of player start position
-    public GameObject fallDetector; // 
+    
+
+    // FSM
+    private enum State {idle,running,jumping,falling} // Player states
+    private State state = State.idle; // Default state
+
+    // Inspector variables
+    [SerializeField] private LayerMask Ground;
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float jumpforce = 10f;
+    [SerializeField] private int stars = 0;
+    [SerializeField] private Text starText;
+
+    public GameObject fallDetector; 
 
     void Start()
     {
@@ -29,33 +39,35 @@ public class PlayerControl : MonoBehaviour
     
     void Update()
     {
-
-        direction = Input.GetAxis("Horizontal");
-
-        if (Input.GetButtonDown("Jump") && coll.IsTouchingLayers(Ground)) 
-        {
-            rb.velocity = new Vector2(rb.velocity.x, 10f);
-            state = State.jumping;
-        }// jump
-        if (direction < 0f)
-        {
-            transform.localScale = new Vector2(-1, 1);
-            rb.velocity = new Vector2(direction * speed, rb.velocity.y);
-        } // move left
-        else if (direction > 0f)
-        {
-            transform.localScale = new Vector2(1, 1);
-            rb.velocity = new Vector2(direction * speed, rb.velocity.y);
-        } // move right
-        else 
-        {
-
-        }
-        VelocityState();
-        anim.SetInteger("state",(int) state);
+        Movement();
+        AnimationState();
+        anim.SetInteger("state", (int)state); // Sets animation based on enum State
 
         fallDetector.transform.position = new Vector2(transform.position.x, fallDetector.transform.position.y);
 
+    }
+
+    private void Movement()
+    {
+        float hDirection = Input.GetAxis("Horizontal");
+
+        if (hDirection < 0)
+        {
+            rb.velocity = new Vector2(-speed, rb.velocity.y);
+            transform.localScale = new Vector2(-1, 1);
+        } // Moving left
+
+        else if (hDirection > 0)
+        {
+            rb.velocity = new Vector2(speed, rb.velocity.y);
+            transform.localScale = new Vector2(1, 1);
+        } // Moving right
+
+        if (Input.GetButtonDown("Jump") && coll.IsTouchingLayers(Ground))
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpforce);
+            state = State.jumping;
+        } // Jumping
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -68,33 +80,48 @@ public class PlayerControl : MonoBehaviour
         {
             respawnPoint = transform.position;        
         }
-
-    } // detects collision with tag for fall and respawns
-
-    private void VelocityState() // check if jumping
-    {
-        if (state == State.jumping) // detecting jump
+        else if (collision.tag == "Collectible")
         {
-            if (rb.velocity.y < .1f) // detecting fall
+            Destroy(collision.gameObject);
+            stars += 1;
+            starText.text = stars.ToString();
+        }
+
+    } // Detects collision with tag for fall, respawn, collectible
+
+
+    private void AnimationState() // Check if jumping
+    {
+        if (state == State.jumping) // Detecting jump
+        {
+            if (rb.velocity.y < .1f) // Detecting fall
             {
                 state = State.falling; 
             }
         }
-        else if (state == State.falling)  // check if falling
+
+        else if (state == State.falling)  // Check if falling
         {
             if (coll.IsTouchingLayers(Ground)) 
             {
                 state = State.idle;
             }
         }
-        else if (Mathf.Abs(rb.velocity.x) > .1f) // detecting movement
+
+        else if (Mathf.Abs(rb.velocity.x) > .1f) // Detecting movement
         {
-            // moving
+            
             state = State.running;
-        }
+        } // Moving
+
+        /*else if (state == State.running && rb.velocity.y < .1f)
+        {
+            state = State.falling;
+            running to falling check (didnt work)
+        }*/
         else
-        {  // stopping
+        {  
             state = State.idle;
-        }
+        } // Stopping
     }
 }

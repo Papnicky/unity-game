@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Checkpoint
   - FallDetector
+  - Collectible
   layers:
   - Default
   - TransparentFX
@@ -60,4 +61,7 @@ TagManager:
     locked: 0
   - name: Plants
     uniqueID: 4049373011
+    locked: 0
+  - name: Points
+    uniqueID: 1812836883
     locked: 0
