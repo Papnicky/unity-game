@@ -7,6 +7,7 @@ TagManager:
   - Checkpoint
   - FallDetector
   - Collectible
+  - Enemy
   layers:
   - Default
   - TransparentFX

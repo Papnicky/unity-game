@@ -16,15 +16,16 @@ public class PlayerControl : MonoBehaviour
     
 
     // FSM
-    private enum State {idle,running,jumping,falling} // Player states
+    private enum State {idle, running, jumping, falling, hurt} // Player states
     private State state = State.idle; // Default state
 
     // Inspector variables
     [SerializeField] private LayerMask Ground;
     [SerializeField] private float speed = 5f;
-    [SerializeField] private float jumpforce = 10f;
+    [SerializeField] private float jumpForce = 10f;
     [SerializeField] private int stars = 0;
     [SerializeField] private Text starText;
+    [SerializeField] private float hurtForce = 10f;
 
     public GameObject fallDetector; 
 
@@ -39,7 +40,11 @@ public class PlayerControl : MonoBehaviour
     
     void Update()
     {
-        Movement();
+        if (state != State.hurt)
+        {
+            Movement();
+        }
+
         AnimationState();
         anim.SetInteger("state", (int)state); // Sets animation based on enum State
 
@@ -65,9 +70,19 @@ public class PlayerControl : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && coll.IsTouchingLayers(Ground))
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpforce);
-            state = State.jumping;
+            Jump();
         } // Jumping
+
+        /*if (Input.GetButtonDown("Attack"))
+        {
+            state = State.attacking;
+        }*/
+    }
+
+    private void Jump()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        state = State.jumping;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -89,9 +104,39 @@ public class PlayerControl : MonoBehaviour
 
     } // Detects collision with tag for fall, respawn, collectible
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            if (state == State.falling)
+            {
+                Destroy(other.gameObject);
+                Jump();
+            }
+            else
+            {
+                state = State.hurt;
+                if (other.gameObject.transform.position.x > transform.position.x)
+                {
+                    // Enemy is to my right so i should be damaged and move left
+                    rb.velocity = new Vector2(-hurtForce, rb.velocity.y);
+                }
+                else
+                {
+                    rb.velocity = new Vector2(hurtForce, rb.velocity.y);
+                    // Enemy is to my left so i should be damaged and move right
+
+                }
+            }
+
+        }
+    }
+
 
     private void AnimationState() // Check if jumping
     {
+
+
         if (state == State.jumping) // Detecting jump
         {
             if (rb.velocity.y < .1f) // Detecting fall
@@ -107,6 +152,13 @@ public class PlayerControl : MonoBehaviour
                 state = State.idle;
             }
         }
+        else if (state == State.hurt)
+        {
+            if (Mathf.Abs(rb.velocity.x) < .1f)
+            {
+                state = State.idle;
+            }
+        } // Check if hurt
 
         else if (Mathf.Abs(rb.velocity.x) > .1f) // Detecting movement
         {
