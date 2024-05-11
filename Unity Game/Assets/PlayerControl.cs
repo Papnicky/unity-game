@@ -4,6 +4,7 @@ using System.Data;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -100,6 +101,16 @@ public class PlayerControl : MonoBehaviour
             Destroy(collision.gameObject);
             stars += 1;
             starText.text = stars.ToString();
+        }
+        else if (collision.tag == "NextLevel")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            respawnPoint = transform.position;
+        }
+        else if (collision.tag == "PreviousLevel")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+            respawnPoint = transform.position;
         }
 
     } // Detects collision with tag for fall, respawn, collectible
