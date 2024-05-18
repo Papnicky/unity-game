@@ -6,7 +6,7 @@ public class CameraControl : MonoBehaviour
 {
     private Vector3 playerPosition;
     public float offset; // determines the distance of the camera from the playes when facing direction changes
-    public float offsetSmoothness; // determines how fast the camera can catchup to the player
+    public float offsetSmoothness; // determines how fast the camera can catch up to the player
     public GameObject player;
     
     void Start()

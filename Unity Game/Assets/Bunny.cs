@@ -14,6 +14,7 @@ public class Bunny : MonoBehaviour
     private Collider2D coll;
     private Rigidbody2D rb;
 
+
     private bool facingLeft = true;
 
     
@@ -27,11 +28,16 @@ public class Bunny : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Move();
+    }
+
+    private void Move()
+    {
         if (facingLeft)
         {
             //Test to see if we are beyond the left cap, if not, face right
-            if (transform.position.x  > leftCap)
-            {   
+            if (transform.position.x > leftCap)
+            {
                 // Make sure sprite is facing in the right direction
                 if (transform.localScale.x != 1)
                 {

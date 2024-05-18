@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class PlayerControl : MonoBehaviour
 {
     // Start() variables
+    private int hitRange = 1;
     private Rigidbody2D rb; 
     private Collider2D coll;
     private Animator anim;
@@ -17,7 +18,7 @@ public class PlayerControl : MonoBehaviour
     
 
     // FSM
-    private enum State {idle, running, jumping, falling, hurt} // Player states
+    private enum State {idle, running, jumping, falling, hurt, attacking} // Player states
     private State state = State.idle; // Default state
 
     // Inspector variables
@@ -74,10 +75,10 @@ public class PlayerControl : MonoBehaviour
             Jump();
         } // Jumping
 
-        /*if (Input.GetButtonDown("Attack"))
-        {
-            state = State.attacking;
-        }*/
+        //if (Input.GetButtonDown("Attack"))
+        //{
+        //    Attack();
+        //}
     }
 
     private void Jump()
@@ -85,6 +86,21 @@ public class PlayerControl : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         state = State.jumping;
     }
+
+    //void Attack()
+    //{
+    //    RaycastHit hit;
+    //    Vector3 forward = transform.TransformDirection(Vector3.forward);
+    //    Vector3 origin = transform.position;
+
+    //if (Physics.Raycast(origin, forward, hitRange, out hit))
+    //    {
+    //        if (hit.transform.gameObject.tag == "Enemy")
+    //        {
+    //            hit.transform.gameObject.SendMessage("TakeDamage", 30);
+    //        }
+    //    }
+    //}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
