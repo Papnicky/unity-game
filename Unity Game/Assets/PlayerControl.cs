@@ -9,17 +9,23 @@ using UnityEngine.SceneManagement;
 public class PlayerControl : MonoBehaviour
 {
     // Start() variables
-    private int hitRange = 1;
     private Rigidbody2D rb; 
     private Collider2D coll;
     private Animator anim;
     private Vector3 respawnPoint;
 
-    
+    public Image[] hearts;
+    public Sprite fullHeart;
+    public Sprite emptyHeart;
+    public int health;
+    public int numOfHearts;
+    public GameObject fallDetector;
+
 
     // FSM
     private enum State {idle, running, jumping, falling, hurt, attacking} // Player states
     private State state = State.idle; // Default state
+
 
     // Inspector variables
     [SerializeField] private LayerMask Ground;
@@ -29,7 +35,8 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private Text starText;
     [SerializeField] private float hurtForce = 10f;
 
-    public GameObject fallDetector; 
+
+ 
 
     void Start()
     {
@@ -37,11 +44,39 @@ public class PlayerControl : MonoBehaviour
         anim = GetComponent<Animator>();
         coll = GetComponent<Collider2D>();
 
+
         respawnPoint = transform.position;
     }
     
     void Update()
     {
+        if (health > numOfHearts)
+        {
+            health = numOfHearts;
+        }
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i < health)
+            {
+                hearts[i].sprite = fullHeart;
+            }
+            else
+            {
+                hearts[i].sprite = emptyHeart;
+            }
+            
+            if (i < numOfHearts)
+            {
+                hearts[i].enabled = true;
+            }
+            else
+            {
+                hearts[i].enabled = false;
+            }
+        }
+
+       
+
         if (state != State.hurt)
         {
             Movement();
@@ -129,7 +164,7 @@ public class PlayerControl : MonoBehaviour
             respawnPoint = transform.position;
         }
 
-    } // Detects collision with tag for fall, respawn, collectible
+    } // Detects collision with tag for fall, respawn, etc.
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -143,6 +178,13 @@ public class PlayerControl : MonoBehaviour
             else
             {
                 state = State.hurt;
+                health -= 1;
+                numOfHearts -= 1;
+                if (numOfHearts == 0)
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                }
+
                 if (other.gameObject.transform.position.x > transform.position.x)
                 {
                     // Enemy is to my right so i should be damaged and move left
