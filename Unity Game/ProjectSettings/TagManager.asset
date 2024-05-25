@@ -11,6 +11,7 @@ TagManager:
   - NextLevel
   - PreviousLevel
   - Chest
+  - Spikes
   layers:
   - Default
   - TransparentFX
@@ -54,7 +55,7 @@ TagManager:
   - name: Mid
     uniqueID: 2895034145
     locked: 0
-  - name: Decors
+  - name: Decors back
     uniqueID: 261505679
     locked: 0
   - name: Fore
@@ -68,4 +69,7 @@ TagManager:
     locked: 0
   - name: Points
     uniqueID: 1812836883
+    locked: 0
+  - name: Decors front
+    uniqueID: 3988565253
     locked: 0

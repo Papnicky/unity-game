@@ -153,15 +153,12 @@ public class PlayerControl : MonoBehaviour
             stars += 1;
             starText.text = stars.ToString();
         }
-        else if (collision.tag == "NextLevel")
+        else if (collision.tag == "Spikes")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            respawnPoint = transform.position;
-        }
-        else if (collision.tag == "PreviousLevel")
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-            respawnPoint = transform.position;
+            health -= 1;
+            numOfHearts -= 1;
+            transform.position = respawnPoint;
+
         }
 
     } // Detects collision with tag for fall, respawn, etc.
