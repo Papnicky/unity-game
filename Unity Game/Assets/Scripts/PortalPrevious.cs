@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PortalPrevious : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class PortalPrevious : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            SceneController.instance.PreviousLevel();
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex - 1);
         }
     }
 
