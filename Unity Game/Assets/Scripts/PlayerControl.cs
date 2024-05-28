@@ -110,10 +110,6 @@ public class PlayerControl : MonoBehaviour
             Jump();
         } // Jumping
 
-        //if (Input.GetButtonDown("Attack"))
-        //{
-        //    Attack();
-        //}
     }
 
     private void Jump()
@@ -122,20 +118,6 @@ public class PlayerControl : MonoBehaviour
         state = State.jumping;
     }
 
-    //void Attack()
-    //{
-    //    RaycastHit hit;
-    //    Vector3 forward = transform.TransformDirection(Vector3.forward);
-    //    Vector3 origin = transform.position;
-
-    //if (Physics.Raycast(origin, forward, hitRange, out hit))
-    //    {
-    //        if (hit.transform.gameObject.tag == "Enemy")
-    //        {
-    //            hit.transform.gameObject.SendMessage("TakeDamage", 30);
-    //        }
-    //    }
-    //}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

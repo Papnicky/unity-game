@@ -135,6 +135,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bee (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1415593451791555375, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8566060919750439104, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 68.20795
@@ -423,6 +427,10 @@ PrefabInstance:
     - target: {fileID: 1415593451791555375, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
       propertyPath: m_Name
       value: Bee (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415593451791555375, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1580203851033822235, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
       propertyPath: SetPaths.Array.data[0].x
@@ -854,6 +862,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bee (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1415593451791555375, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8566060919750439104, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 61.512653
@@ -999,6 +1011,10 @@ PrefabInstance:
     - target: {fileID: 1415593451791555375, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
       propertyPath: m_Name
       value: Bee
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415593451791555375, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8566060919750439104, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -72703,6 +72719,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bee
       objectReference: {fileID: 0}
+    - target: {fileID: 1415593451791555375, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8566060919750439104, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 74.85173
@@ -72790,6 +72810,10 @@ PrefabInstance:
     - target: {fileID: 1415593451791555375, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
       propertyPath: m_Name
       value: Bee (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415593451791555375, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8566060919750439104, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -113929,6 +113953,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bee (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 1415593451791555375, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8566060919750439104, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 229.59323
@@ -114707,6 +114735,10 @@ PrefabInstance:
     - target: {fileID: 1415593451791555375, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
       propertyPath: m_Name
       value: Bee (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415593451791555375, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8566060919750439104, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -116061,6 +116093,10 @@ PrefabInstance:
     - target: {fileID: 1415593451791555375, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
       propertyPath: m_Name
       value: Bee (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415593451791555375, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8566060919750439104, guid: 0f825a844d01a974faad4537a97327a3, type: 3}
       propertyPath: m_LocalPosition.x
