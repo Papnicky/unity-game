@@ -197,6 +197,8 @@ public class PlayerControl : MonoBehaviour
             {
                 audioManager.PlaySFX(audioManager.enemydeath);
                 Destroy(other.gameObject);
+                Scoring.totalScore += 2;
+                scoreText.text = Scoring.totalScore.ToString();
                 Jump();
             }
             else
