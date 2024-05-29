@@ -12,6 +12,8 @@ TagManager:
   - PreviousLevel
   - Chest
   - Spikes
+  - Audio
+  - Ladder
   layers:
   - Default
   - TransparentFX

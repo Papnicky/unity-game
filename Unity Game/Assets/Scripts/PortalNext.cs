@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Portal : MonoBehaviour
+public class PortalNext : MonoBehaviour
 {
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (collision.tag == "Player" && stars >= 60)
-    //    {
-    //        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-    //    }
-    //}
+  
 
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") && (Scoring.totalScore >= 60)) 
+        {
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+    }
 }

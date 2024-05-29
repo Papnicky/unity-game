@@ -23,29 +23,35 @@ public class PlayerControl : MonoBehaviour
 
 
     // FSM
-    private enum State {idle, running, jumping, falling, hurt, attacking} // Player states
+    private enum State {idle, running, jumping, falling, hurt, attacking, climbing} // Player states
     private State state = State.idle; // Default state
 
+    private float vertical;
+    private bool isLadder;
+    private bool isClimbing;
 
     // Inspector variables
     [SerializeField] private LayerMask Ground;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 10f;
-    [SerializeField] private int stars = 0;
-    [SerializeField] private Text starText;
+    [SerializeField] private Text scoreText;
     [SerializeField] private float hurtForce = 10f;
 
+    AudioManager audioManager;
 
- 
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         coll = GetComponent<Collider2D>();
-
-
         respawnPoint = transform.position;
+        scoreText.text = Scoring.totalScore.ToString();
     }
     
     void Update()
@@ -75,8 +81,6 @@ public class PlayerControl : MonoBehaviour
             }
         }
 
-       
-
         if (state != State.hurt)
         {
             Movement();
@@ -87,8 +91,28 @@ public class PlayerControl : MonoBehaviour
 
         fallDetector.transform.position = new Vector2(transform.position.x, fallDetector.transform.position.y);
 
+        vertical = Input.GetAxis("Vertical");
+
+        if (isLadder && Mathf.Abs(vertical) > 0f)
+        { 
+            isClimbing = true;
+            
+        }
     }
 
+    private void FixedUpdate()
+    {
+        if (isClimbing)
+        {   
+            state = State.climbing;
+            rb.gravityScale = 0f;
+            rb.velocity = new Vector2(rb.velocity.x, vertical * speed);
+        }
+        else 
+        { 
+            rb.gravityScale = 3f; 
+        }
+    }
     private void Movement()
     {
         float hDirection = Input.GetAxis("Horizontal");
@@ -107,6 +131,7 @@ public class PlayerControl : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && coll.IsTouchingLayers(Ground))
         {
+            audioManager.PlaySFX(audioManager.jump);
             Jump();
         } // Jumping
 
@@ -127,28 +152,22 @@ public class PlayerControl : MonoBehaviour
         }
         else if (collision.tag == "Checkpoint")
         {
-            respawnPoint = transform.position;        
+            audioManager.PlaySFX(audioManager.checkpoint);
+            respawnPoint = transform.position;
         }
         else if (collision.tag == "Collectible")
         {
+            audioManager.PlaySFX(audioManager.collect);
+            Scoring.totalScore += 1;
+            scoreText.text = Scoring.totalScore.ToString();
             Destroy(collision.gameObject);
-            stars += 1;
-            starText.text = stars.ToString();
         }
-        else if (collision.tag == "NextLevel")
+        else if (collision.tag == "Chest")
         {
-            if (stars >= 60)
-            {
-                SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-            }
-            else
-            { 
-              // print message
-            }
-        }
-        else if (collision.tag == "PreviousLevel")
-        {
-                SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex - 1);
+            audioManager.PlaySFX(audioManager.chest);
+            Scoring.totalScore += 10;
+            scoreText.text = Scoring.totalScore.ToString();
+            Destroy(collision.gameObject);
         }
         else if (collision.tag == "Spikes")
         {
@@ -156,14 +175,27 @@ public class PlayerControl : MonoBehaviour
             numOfHearts -= 1;
             transform.position = respawnPoint;
         }
+        else if (collision.tag == "Ladder")
+        { 
+            isLadder = true;    
+            isClimbing = true;
+        }
     } // Detects collision with tag for fall, respawn, etc.
-
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Ladder")
+        {
+            isLadder = false;
+            isClimbing = false;
+        }
+    }
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Enemy")
         {
             if (state == State.falling)
             {
+                audioManager.PlaySFX(audioManager.enemydeath);
                 Destroy(other.gameObject);
                 Jump();
             }
@@ -191,6 +223,7 @@ public class PlayerControl : MonoBehaviour
             }
 
         }
+        
     }
 
 
