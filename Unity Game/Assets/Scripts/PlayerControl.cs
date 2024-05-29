@@ -115,6 +115,10 @@ public class PlayerControl : MonoBehaviour
     }
     private void Movement()
     {
+        if (DialogueManager.GetInstance().dialogueIsPlaying)
+        {
+            return;
+        }
         float hDirection = Input.GetAxis("Horizontal");
 
         if (hDirection < 0)
