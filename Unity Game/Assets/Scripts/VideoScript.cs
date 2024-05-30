@@ -12,9 +12,17 @@ public class VideoScript: MonoBehaviour
     {
         myVideoPlayer.loopPointReached += OnVideoEnd;
     }
-
     void OnVideoEnd(VideoPlayer vp)
     {
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
     }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space)) 
+        {
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+    }
+
+    
 }

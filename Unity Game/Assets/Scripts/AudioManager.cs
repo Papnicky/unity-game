@@ -15,9 +15,6 @@ public class AudioManager : MonoBehaviour
     public AudioClip npc;
     public AudioClip enemydeath;
     public AudioClip portal;
-    
-
-
 
     private void Start()
     {

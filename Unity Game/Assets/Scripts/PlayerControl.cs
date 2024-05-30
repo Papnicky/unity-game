@@ -233,26 +233,25 @@ public class PlayerControl : MonoBehaviour
     }
 
 
-    private void AnimationState() // Check if jumping
+    private void AnimationState() 
     {
 
 
-        if (state == State.jumping) // Detecting jump
+        if (state == State.jumping) 
         {
             if (rb.velocity.y < .1f) // Detecting fall
             {
                 state = State.falling; 
             }
-        }
-
-        else if (state == State.falling)  // Check if falling
+        } // Check if jumping
+        else if (state == State.falling)  
         {
             if (coll.IsTouchingLayers(Ground)) 
             {
                 state = State.idle;
             }
-        }
-        else if (state == State.hurt)
+        } // Check if falling
+        else if (state == State.hurt) 
         {
             if (Mathf.Abs(rb.velocity.x) < .1f)
             {
@@ -265,12 +264,6 @@ public class PlayerControl : MonoBehaviour
             
             state = State.running;
         } // Moving
-
-        /*else if (state == State.running && rb.velocity.y < .1f)
-        {
-            state = State.falling;
-            running to falling check (didnt work)
-        }*/
         else
         {  
             state = State.idle;
