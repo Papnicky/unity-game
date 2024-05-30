@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ControlsPopup : MonoBehaviour
 {
-    private bool playerInRange;
+
 
     [Header("Control Popup")]
     [SerializeField] private GameObject ControlPopupPanel;
@@ -12,7 +12,6 @@ public class ControlsPopup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerInRange = false;
         ControlPopupPanel.SetActive(false);
     }
 

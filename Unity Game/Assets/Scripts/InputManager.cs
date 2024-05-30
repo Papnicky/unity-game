@@ -11,6 +11,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class InputManager : MonoBehaviour
 {
+
+
     private Vector2 moveDirection = Vector2.zero;
     private bool jumpPressed = false;
     private bool interactPressed = false;
@@ -58,8 +60,9 @@ public class InputManager : MonoBehaviour
 
     public void InteractButtonPressed(InputAction.CallbackContext context)
     {
+
         if (context.performed)
-        {
+        {        
             interactPressed = true;
         }
         else if (context.canceled)
